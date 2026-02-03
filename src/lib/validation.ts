@@ -3,8 +3,8 @@
  */
 
 export interface ValidationResult {
-  valid: boolean;
-  error?: string;
+  valid: boolean
+  error?: string
 }
 
 /**
@@ -13,15 +13,15 @@ export interface ValidationResult {
  * @returns バリデーション結果
  */
 export function validateTaskTitle(title: string): ValidationResult {
-  const trimmed = title.trim();
+  const trimmed = title.trim()
 
   if (trimmed.length === 0) {
-    return { valid: false, error: "タスク名を入力してください" };
+    return { valid: false, error: 'タスク名を入力してください' }
   }
 
   if (trimmed.length > 255) {
-    return { valid: false, error: "タスク名は255文字以内で入力してください" };
+    return { valid: false, error: 'タスク名は255文字以内で入力してください' }
   }
 
-  return { valid: true };
+  return { valid: true }
 }

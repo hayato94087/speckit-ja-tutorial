@@ -1,99 +1,81 @@
-import { describe, it, expect, beforeEach, vi, afterEach } from "vitest";
-import { renderHook, act } from "@testing-library/react";
-import { useLocalStorage } from "@/hooks/use-local-storage";
-import { z } from "zod";
+import { describe, it, expect, beforeEach, vi, afterEach } from 'vitest'
+import { renderHook, act } from '@testing-library/react'
+import { useLocalStorage } from '@/hooks/use-local-storage'
+import { z } from 'zod'
 
 const TestSchema = z.object({
   name: z.string(),
   value: z.number(),
-});
+})
 
-describe("useLocalStorage", () => {
-  const TEST_KEY = "test-key";
+describe('useLocalStorage', () => {
+  const TEST_KEY = 'test-key'
 
   beforeEach(() => {
-    localStorage.clear();
-  });
+    localStorage.clear()
+  })
 
   afterEach(() => {
-    vi.restoreAllMocks();
-  });
+    vi.restoreAllMocks()
+  })
 
-  it("初期状態ではnullを返す", () => {
-    const { result } = renderHook(() =>
-      useLocalStorage(TEST_KEY, TestSchema)
-    );
+  it('初期状態ではnullを返す', () => {
+    const { result } = renderHook(() => useLocalStorage(TEST_KEY, TestSchema))
 
-    expect(result.current.value).toBeNull();
-    expect(result.current.isLoaded).toBe(true);
-  });
+    expect(result.current.value).toBeNull()
+    expect(result.current.isLoaded).toBe(true)
+  })
 
-  it("保存された値を読み込む", () => {
-    localStorage.setItem(
-      TEST_KEY,
-      JSON.stringify({ name: "test", value: 42 })
-    );
+  it('保存された値を読み込む', () => {
+    localStorage.setItem(TEST_KEY, JSON.stringify({ name: 'test', value: 42 }))
 
-    const { result } = renderHook(() =>
-      useLocalStorage(TEST_KEY, TestSchema)
-    );
+    const { result } = renderHook(() => useLocalStorage(TEST_KEY, TestSchema))
 
-    expect(result.current.value).toEqual({ name: "test", value: 42 });
-  });
+    expect(result.current.value).toEqual({ name: 'test', value: 42 })
+  })
 
-  it("値を保存できる", () => {
-    const { result } = renderHook(() =>
-      useLocalStorage(TEST_KEY, TestSchema)
-    );
+  it('値を保存できる', () => {
+    const { result } = renderHook(() => useLocalStorage(TEST_KEY, TestSchema))
 
     act(() => {
-      result.current.setValue({ name: "new", value: 100 });
-    });
+      result.current.setValue({ name: 'new', value: 100 })
+    })
 
-    expect(result.current.value).toEqual({ name: "new", value: 100 });
+    expect(result.current.value).toEqual({ name: 'new', value: 100 })
     expect(JSON.parse(localStorage.getItem(TEST_KEY)!)).toEqual({
-      name: "new",
+      name: 'new',
       value: 100,
-    });
-  });
+    })
+  })
 
-  it("値を削除できる", () => {
-    localStorage.setItem(
-      TEST_KEY,
-      JSON.stringify({ name: "test", value: 42 })
-    );
+  it('値を削除できる', () => {
+    localStorage.setItem(TEST_KEY, JSON.stringify({ name: 'test', value: 42 }))
 
-    const { result } = renderHook(() =>
-      useLocalStorage(TEST_KEY, TestSchema)
-    );
+    const { result } = renderHook(() => useLocalStorage(TEST_KEY, TestSchema))
 
     act(() => {
-      result.current.removeValue();
-    });
+      result.current.removeValue()
+    })
 
-    expect(result.current.value).toBeNull();
-    expect(localStorage.getItem(TEST_KEY)).toBeNull();
-  });
+    expect(result.current.value).toBeNull()
+    expect(localStorage.getItem(TEST_KEY)).toBeNull()
+  })
 
-  it("無効なJSONの場合はエラーを設定する", () => {
-    localStorage.setItem(TEST_KEY, "invalid json");
+  it('無効なJSONの場合はエラーを設定する', () => {
+    localStorage.setItem(TEST_KEY, 'invalid json')
 
-    const { result } = renderHook(() =>
-      useLocalStorage(TEST_KEY, TestSchema)
-    );
+    const { result } = renderHook(() => useLocalStorage(TEST_KEY, TestSchema))
 
-    expect(result.current.value).toBeNull();
-    expect(result.current.error).not.toBeNull();
-  });
+    expect(result.current.value).toBeNull()
+    expect(result.current.error).not.toBeNull()
+  })
 
-  it("スキーマに合わない場合はエラーを設定する", () => {
-    localStorage.setItem(TEST_KEY, JSON.stringify({ invalid: "data" }));
+  it('スキーマに合わない場合はエラーを設定する', () => {
+    localStorage.setItem(TEST_KEY, JSON.stringify({ invalid: 'data' }))
 
-    const { result } = renderHook(() =>
-      useLocalStorage(TEST_KEY, TestSchema)
-    );
+    const { result } = renderHook(() => useLocalStorage(TEST_KEY, TestSchema))
 
-    expect(result.current.value).toBeNull();
-    expect(result.current.error).not.toBeNull();
-  });
-});
+    expect(result.current.value).toBeNull()
+    expect(result.current.error).not.toBeNull()
+  })
+})

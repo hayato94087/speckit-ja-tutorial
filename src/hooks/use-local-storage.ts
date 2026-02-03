@@ -1,19 +1,19 @@
-"use client";
+'use client'
 
-import { useState, useEffect, useCallback } from "react";
-import { z } from "zod";
+import { useState, useEffect, useCallback } from 'react'
+import { z } from 'zod'
 
 export interface UseLocalStorageReturn<T> {
   /** 保存された値 */
-  value: T | null;
+  value: T | null
   /** 読み込み完了フラグ */
-  isLoaded: boolean;
+  isLoaded: boolean
   /** 値を保存 */
-  setValue: (value: T) => void;
+  setValue: (value: T) => void
   /** 値を削除 */
-  removeValue: () => void;
+  removeValue: () => void
   /** エラー */
-  error: Error | null;
+  error: Error | null
 }
 
 /**
@@ -26,56 +26,56 @@ export function useLocalStorage<T>(
   key: string,
   schema: z.ZodType<T>
 ): UseLocalStorageReturn<T> {
-  const [value, setValueState] = useState<T | null>(null);
-  const [isLoaded, setIsLoaded] = useState(false);
-  const [error, setError] = useState<Error | null>(null);
+  const [value, setValueState] = useState<T | null>(null)
+  const [isLoaded, setIsLoaded] = useState(false)
+  const [error, setError] = useState<Error | null>(null)
 
   // 初期読み込み
   useEffect(() => {
     try {
-      const stored = localStorage.getItem(key);
+      const stored = localStorage.getItem(key)
 
       if (stored === null) {
-        setIsLoaded(true);
-        return;
+        setIsLoaded(true)
+        return
       }
 
-      const parsed = JSON.parse(stored);
-      const validated = schema.parse(parsed);
-      setValueState(validated);
-      setError(null);
+      const parsed = JSON.parse(stored)
+      const validated = schema.parse(parsed)
+      setValueState(validated)
+      setError(null)
     } catch (e) {
-      setError(e instanceof Error ? e : new Error("Unknown error"));
-      setValueState(null);
+      setError(e instanceof Error ? e : new Error('Unknown error'))
+      setValueState(null)
     } finally {
-      setIsLoaded(true);
+      setIsLoaded(true)
     }
-  }, [key, schema]);
+  }, [key, schema])
 
   // 値を保存
   const setValue = useCallback(
     (newValue: T) => {
       try {
-        localStorage.setItem(key, JSON.stringify(newValue));
-        setValueState(newValue);
-        setError(null);
+        localStorage.setItem(key, JSON.stringify(newValue))
+        setValueState(newValue)
+        setError(null)
       } catch (e) {
-        setError(e instanceof Error ? e : new Error("Failed to save"));
+        setError(e instanceof Error ? e : new Error('Failed to save'))
       }
     },
     [key]
-  );
+  )
 
   // 値を削除
   const removeValue = useCallback(() => {
     try {
-      localStorage.removeItem(key);
-      setValueState(null);
-      setError(null);
+      localStorage.removeItem(key)
+      setValueState(null)
+      setError(null)
     } catch (e) {
-      setError(e instanceof Error ? e : new Error("Failed to remove"));
+      setError(e instanceof Error ? e : new Error('Failed to remove'))
     }
-  }, [key]);
+  }, [key])
 
   return {
     value,
@@ -83,5 +83,5 @@ export function useLocalStorage<T>(
     setValue,
     removeValue,
     error,
-  };
+  }
 }

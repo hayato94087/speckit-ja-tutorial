@@ -53,3 +53,7 @@ tmp/
 temp/
 *.tmp
 *.temp
+
+# Test results
+test-results/
+playwright-report/

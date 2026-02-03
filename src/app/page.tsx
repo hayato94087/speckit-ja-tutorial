@@ -1,4 +1,4 @@
-import { TodoApp } from "@/components/todo/todo-app";
+import { TodoApp } from '@/components/todo/todo-app'
 
 export default function Home() {
   return (
@@ -10,5 +10,5 @@ export default function Home() {
         <TodoApp />
       </div>
     </main>
-  );
+  )
 }

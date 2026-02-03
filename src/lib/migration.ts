@@ -2,7 +2,7 @@ import {
   StorageData,
   StorageDataSchema,
   CURRENT_STORAGE_VERSION,
-} from "@/types/todo";
+} from '@/types/todo'
 
 /**
  * データをマイグレーションする（data-model.md §6準拠）
@@ -12,38 +12,38 @@ import {
 export function migrateData(data: unknown): StorageData | null {
   // null/undefinedチェック
   if (data === null || data === undefined) {
-    return null;
+    return null
   }
 
   // オブジェクト以外は無効
-  if (typeof data !== "object" || Array.isArray(data)) {
-    return null;
+  if (typeof data !== 'object' || Array.isArray(data)) {
+    return null
   }
 
-  const parsed = data as Record<string, unknown>;
+  const parsed = data as Record<string, unknown>
 
   // バージョンがない場合は無効
-  if (typeof parsed.version !== "number") {
-    return null;
+  if (typeof parsed.version !== 'number') {
+    return null
   }
 
-  const version = parsed.version;
+  const version = parsed.version
 
   // 未来のバージョンは処理できない
   if (version > CURRENT_STORAGE_VERSION) {
-    return null;
+    return null
   }
 
   // 現在のバージョンならバリデーションして返す
   if (version === CURRENT_STORAGE_VERSION) {
-    const result = StorageDataSchema.safeParse(data);
+    const result = StorageDataSchema.safeParse(data)
     if (result.success) {
-      return result.data;
+      return result.data
     }
-    return null;
+    return null
   }
 
   // 古いバージョンのマイグレーション（将来の拡張用）
   // 現時点ではv1のみなので、v0からのマイグレーションは未実装
-  return null;
+  return null
 }

@@ -1,16 +1,16 @@
-"use client";
+'use client'
 
-import React, { Component, type ErrorInfo, type ReactNode } from "react";
-import { Button } from "@/components/ui/button";
+import React, { Component, type ErrorInfo, type ReactNode } from 'react'
+import { Button } from '@/components/ui/button'
 
 interface Props {
-  children: ReactNode;
-  fallback?: ReactNode;
+  children: ReactNode
+  fallback?: ReactNode
 }
 
 interface State {
-  hasError: boolean;
-  error: Error | null;
+  hasError: boolean
+  error: Error | null
 }
 
 /**
@@ -19,38 +19,38 @@ interface State {
  */
 export class ErrorBoundary extends Component<Props, State> {
   constructor(props: Props) {
-    super(props);
-    this.state = { hasError: false, error: null };
+    super(props)
+    this.state = { hasError: false, error: null }
   }
 
   static getDerivedStateFromError(error: Error): State {
-    return { hasError: true, error };
+    return { hasError: true, error }
   }
 
   componentDidCatch(error: Error, errorInfo: ErrorInfo): void {
     // エラーログを出力（本番環境では外部サービスに送信）
-    console.error("ErrorBoundary caught an error:", error, errorInfo);
+    console.error('ErrorBoundary caught an error:', error, errorInfo)
   }
 
   handleRetry = (): void => {
-    this.setState({ hasError: false, error: null });
-  };
+    this.setState({ hasError: false, error: null })
+  }
 
   handleClearAndRetry = (): void => {
     // localStorageをクリアしてリトライ
     try {
-      localStorage.removeItem("todo-app-tasks");
+      localStorage.removeItem('todo-app-tasks')
     } catch {
       // localStorageへのアクセスに失敗した場合は無視
     }
-    this.setState({ hasError: false, error: null });
-    window.location.reload();
-  };
+    this.setState({ hasError: false, error: null })
+    window.location.reload()
+  }
 
   render(): ReactNode {
     if (this.state.hasError) {
       if (this.props.fallback) {
-        return this.props.fallback;
+        return this.props.fallback
       }
 
       return (
@@ -73,15 +73,15 @@ export class ErrorBoundary extends Component<Props, State> {
               データをリセット
             </Button>
           </div>
-          {process.env.NODE_ENV === "development" && this.state.error && (
+          {process.env.NODE_ENV === 'development' && this.state.error && (
             <pre className="mt-4 max-w-full overflow-auto rounded bg-gray-100 p-4 text-left text-sm text-red-600">
               {this.state.error.message}
             </pre>
           )}
         </div>
-      );
+      )
     }
 
-    return this.props.children;
+    return this.props.children
   }
 }

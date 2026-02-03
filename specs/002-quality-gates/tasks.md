@@ -61,9 +61,9 @@
 
 **目的**: Prettier導入とnpm scripts追加
 
-- [ ] T001 `.prettierrc` にPrettier設定を作成
-- [ ] T002 [P] `.prettierignore` にPrettier除外設定を作成
-- [ ] T003 `package.json` にnpm scripts（type-check, format, format:check, check-all）を追加
+- [x] T001 `.prettierrc` にPrettier設定を作成
+- [x] T002 [P] `.prettierignore` にPrettier除外設定を作成
+- [x] T003 `package.json` にnpm scripts（type-check, format, format:check, check-all）を追加
 
 ### Phase 2: 基盤（ブロッキング前提条件）
 
@@ -71,9 +71,9 @@
 
 **⚠️ 重要**: このフェーズが完了するまでユーザーストーリーの検証を開始できません
 
-- [ ] T004 `playwright.config.ts` にスクリーンショット設定（screenshot: 'on'）を追加
-- [ ] T005 [P] `playwright.config.ts` に動画設定（video: 'on'）を追加
-- [ ] T006 [P] `playwright.config.ts` にトレース設定（trace: 'retain-on-failure'）を追加
+- [x] T004 `playwright.config.ts` にスクリーンショット設定（screenshot: 'on'）を追加
+- [x] T005 [P] `playwright.config.ts` に動画設定（video: 'on'）を追加
+- [x] T006 [P] `playwright.config.ts` にトレース設定（trace: 'retain-on-failure'）を追加
 
 > **✅ チェックポイント**: 基盤準備完了 - ユーザーストーリーの検証を開始可能
 
@@ -85,9 +85,9 @@
 
 #### US1の検証
 
-- [ ] T007 [US1] `npm run type-check` を実行し、終了コード0（成功）を確認
-- [ ] T008 [US1] すべての `src/` 配下のファイルが型チェック対象であることを確認
-- [ ] T009 [US1] 意図的な型エラーを追加し、検出されることを確認（テスト後に削除）
+- [x] T007 [US1] `npm run type-check` を実行し、終了コード0（成功）を確認
+- [x] T008 [US1] すべての `src/` 配下のファイルが型チェック対象であることを確認
+- [x] T009 [US1] 意図的な型エラーを追加し、検出されることを確認（テスト後に削除）
 
 > **✅ チェックポイント**: US1が完全に機能し、独立してテスト可能
 
@@ -99,10 +99,10 @@
 
 #### US2の検証
 
-- [ ] T010 [US2] `npm run lint` を実行し、終了コード0（成功）を確認
-- [ ] T011 [P] [US2] `npm run format:check` を実行し、終了コード0（成功）を確認
-- [ ] T012 [US2] すべての `src/` 配下のファイルがリント対象であることを確認
-- [ ] T013 [P] [US2] フォーマット違反がある場合 `npm run format` で自動修正されることを確認
+- [x] T010 [US2] `npm run lint` を実行し、終了コード0（成功）を確認
+- [x] T011 [P] [US2] `npm run format:check` を実行し、終了コード0（成功）を確認
+- [x] T012 [US2] すべての `src/` 配下のファイルがリント対象であることを確認
+- [x] T013 [P] [US2] フォーマット違反がある場合 `npm run format` で自動修正されることを確認
 
 > **✅ チェックポイント**: US2が完全に機能し、独立してテスト可能
 
@@ -114,13 +114,13 @@
 
 #### US3の検証
 
-- [ ] T014 [US3] `npm run test:run` を実行し、すべてのUnitテストがPASSすることを確認
-- [ ] T015 [P] [US3] `tests/unit/lib/validation.test.ts` でバリデーションロジックがテストされていることを確認
-- [ ] T016 [P] [US3] `tests/unit/lib/storage.test.ts` でストレージロジックがテストされていることを確認
-- [ ] T017 [P] [US3] `tests/unit/lib/migration.test.ts` でマイグレーションロジックがテストされていることを確認
-- [ ] T018 [P] [US3] `tests/unit/lib/task-factory.test.ts` でタスクファクトリーロジックがテストされていることを確認
-- [ ] T019a [P] [US3] `tests/unit/hooks/use-todos.test.ts` で完了切り替えロジック（未完了→完了、完了→未完了）がテストされていることを確認
-- [ ] T019b [P] [US3] `tests/unit/hooks/use-local-storage.test.ts` でストレージフックがテストされていることを確認
+- [x] T014 [US3] `npm run test:run` を実行し、すべてのUnitテストがPASSすることを確認
+- [x] T015 [P] [US3] `tests/unit/lib/validation.test.ts` でバリデーションロジックがテストされていることを確認
+- [x] T016 [P] [US3] `tests/unit/lib/storage.test.ts` でストレージロジックがテストされていることを確認
+- [x] T017 [P] [US3] `tests/unit/lib/migration.test.ts` でマイグレーションロジックがテストされていることを確認
+- [x] T018 [P] [US3] `tests/unit/lib/task-factory.test.ts` でタスクファクトリーロジックがテストされていることを確認
+- [x] T019a [P] [US3] `tests/unit/hooks/use-todos.test.ts` で完了切り替えロジック（未完了→完了、完了→未完了）がテストされていることを確認
+- [x] T019b [P] [US3] `tests/unit/hooks/use-local-storage.test.ts` でストレージフックがテストされていることを確認
 
 > **✅ チェックポイント**: US3が完全に機能し、独立してテスト可能
 
@@ -132,14 +132,14 @@
 
 #### US4の検証
 
-- [ ] T020 [US4] `npm run test:e2e` を実行し、すべてのE2EテストがPASSすることを確認
-- [ ] T021 [P] [US4] `tests/e2e/todo-crud.spec.ts` でCRUD操作がテストされていることを確認
-- [ ] T022 [P] [US4] `tests/e2e/todo-complete.spec.ts` で完了切り替えがテストされていることを確認
-- [ ] T023 [P] [US4] `tests/e2e/todo-filter.spec.ts` でフィルタ操作がテストされていることを確認
-- [ ] T024 [P] [US4] `tests/e2e/todo-persistence.spec.ts` で永続化がテストされていることを確認
-- [ ] T025 [US4] `test-results/` にスクリーンショットが生成され、`npx playwright show-report` で確認できることを検証
-- [ ] T026 [P] [US4] `test-results/` に動画ファイル（.webm）が生成されることを確認
-- [ ] T027 [US4] 意図的にテストを失敗させ、`test-results/` にトレース（.zip）が保存されることを確認
+- [x] T020 [US4] `npm run test:e2e` を実行し、すべてのE2EテストがPASSすることを確認
+- [x] T021 [P] [US4] `tests/e2e/todo-crud.spec.ts` でCRUD操作がテストされていることを確認
+- [x] T022 [P] [US4] `tests/e2e/todo-complete.spec.ts` で完了切り替えがテストされていることを確認
+- [x] T023 [P] [US4] `tests/e2e/todo-filter.spec.ts` でフィルタ操作がテストされていることを確認
+- [x] T024 [P] [US4] `tests/e2e/todo-persistence.spec.ts` で永続化がテストされていることを確認
+- [x] T025 [US4] `test-results/` にスクリーンショットが生成され、`npx playwright show-report` で確認できることを検証
+- [x] T026 [P] [US4] `test-results/` に動画ファイル（.webm）が生成されることを確認
+- [x] T027 [US4] 意図的にテストを失敗させ、`test-results/` にトレース（.zip）が保存されることを確認
 
 > **✅ チェックポイント**: US4が完全に機能し、独立してテスト可能
 
@@ -153,8 +153,8 @@
 
 #### US5の検証（US4完了後の最終確認）
 
-- [ ] T028 [US5] すべてのE2Eテストが引き続きPASSすることを `npm run test:e2e` で最終確認
-- [ ] T029 [US5] すべてのUnitテストが引き続きPASSすることを `npm run test:run` で最終確認
+- [x] T028 [US5] すべてのE2Eテストが引き続きPASSすることを `npm run test:e2e` で最終確認
+- [x] T029 [US5] すべてのUnitテストが引き続きPASSすることを `npm run test:run` で最終確認
 
 > **✅ チェックポイント**: 既存機能が維持されていることを確認
 
@@ -162,10 +162,10 @@
 
 **目的**: 全品質ゲートの一括検証とドキュメント整備
 
-- [ ] T034 `npm run check-all` を実行し、すべての品質ゲートが5分以内に成功することを確認
-- [ ] T035 [P] 実行時間を計測し、NFR要件（型チェック1分、Unit2分、E2E5分）を満たすことを確認
-- [ ] T036 [P] `npx playwright show-report` でHTMLレポートが表示されることを確認
-- [ ] T037 quickstart.mdの手順に従って品質ゲートを実行し、手順が正確であることを確認
+- [x] T034 `npm run check-all` を実行し、すべての品質ゲートが5分以内に成功することを確認
+- [x] T035 [P] 実行時間を計測し、NFR要件（型チェック1分、Unit2分、E2E5分）を満たすことを確認
+- [x] T036 [P] `npx playwright show-report` でHTMLレポートが表示されることを確認
+- [x] T037 quickstart.mdの手順に従って品質ゲートを実行し、手順が正確であることを確認
 
 ## 🔗 4. 依存関係と実行順序
 

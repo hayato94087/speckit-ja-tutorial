@@ -1,21 +1,21 @@
-"use client";
+'use client'
 
-import { Task } from "@/types/todo";
-import { TodoItem } from "./todo-item";
-import { TodoEmpty } from "./todo-empty";
-import { Filter } from "@/types/todo";
+import { Task } from '@/types/todo'
+import { TodoItem } from './todo-item'
+import { TodoEmpty } from './todo-empty'
+import { Filter } from '@/types/todo'
 
 interface TodoListProps {
   /** 表示するタスク配列 */
-  tasks: Task[];
+  tasks: Task[]
   /** 完了切替コールバック */
-  onToggle: (id: string) => void;
+  onToggle: (id: string) => void
   /** 編集コールバック */
-  onUpdate: (id: string, title: string) => void;
+  onUpdate: (id: string, title: string) => void
   /** 削除コールバック */
-  onDelete: (id: string) => void;
+  onDelete: (id: string) => void
   /** 現在のフィルタ（空状態メッセージ用） */
-  filter?: Filter;
+  filter?: Filter
 }
 
 /**
@@ -26,10 +26,10 @@ export function TodoList({
   onToggle,
   onUpdate,
   onDelete,
-  filter = "all",
+  filter = 'all',
 }: TodoListProps) {
   if (tasks.length === 0) {
-    return <TodoEmpty filter={filter} />;
+    return <TodoEmpty filter={filter} />
   }
 
   return (
@@ -45,5 +45,5 @@ export function TodoList({
         </li>
       ))}
     </ul>
-  );
+  )
 }

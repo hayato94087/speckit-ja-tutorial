@@ -1,22 +1,22 @@
-"use client";
+'use client'
 
-import { useState, useCallback, KeyboardEvent, useRef, useEffect } from "react";
-import { Task } from "@/types/todo";
-import { Checkbox } from "@/components/ui/checkbox";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { cn } from "@/lib/utils";
-import { Pencil, Trash2, Check, X } from "lucide-react";
+import { useState, useCallback, KeyboardEvent, useRef, useEffect } from 'react'
+import { Task } from '@/types/todo'
+import { Checkbox } from '@/components/ui/checkbox'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { cn } from '@/lib/utils'
+import { Pencil, Trash2, Check, X } from 'lucide-react'
 
 interface TodoItemProps {
   /** タスクデータ */
-  task: Task;
+  task: Task
   /** 完了切替コールバック */
-  onToggle: () => void;
+  onToggle: () => void
   /** 編集コールバック */
-  onUpdate: (title: string) => void;
+  onUpdate: (title: string) => void
   /** 削除コールバック */
-  onDelete: () => void;
+  onDelete: () => void
 }
 
 /**
@@ -28,48 +28,48 @@ export function TodoItem({
   onUpdate,
   onDelete,
 }: TodoItemProps) {
-  const [isEditing, setIsEditing] = useState(false);
-  const [editValue, setEditValue] = useState(task.title);
-  const inputRef = useRef<HTMLInputElement>(null);
+  const [isEditing, setIsEditing] = useState(false)
+  const [editValue, setEditValue] = useState(task.title)
+  const inputRef = useRef<HTMLInputElement>(null)
 
   // 編集モードになったらフォーカス
   useEffect(() => {
     if (isEditing && inputRef.current) {
-      inputRef.current.focus();
-      inputRef.current.select();
+      inputRef.current.focus()
+      inputRef.current.select()
     }
-  }, [isEditing]);
+  }, [isEditing])
 
   const handleStartEdit = useCallback(() => {
-    setEditValue(task.title);
-    setIsEditing(true);
-  }, [task.title]);
+    setEditValue(task.title)
+    setIsEditing(true)
+  }, [task.title])
 
   const handleSaveEdit = useCallback(() => {
-    const trimmed = editValue.trim();
+    const trimmed = editValue.trim()
     if (trimmed && trimmed !== task.title) {
-      onUpdate(trimmed);
+      onUpdate(trimmed)
     }
-    setIsEditing(false);
-  }, [editValue, task.title, onUpdate]);
+    setIsEditing(false)
+  }, [editValue, task.title, onUpdate])
 
   const handleCancelEdit = useCallback(() => {
-    setEditValue(task.title);
-    setIsEditing(false);
-  }, [task.title]);
+    setEditValue(task.title)
+    setIsEditing(false)
+  }, [task.title])
 
   const handleKeyDown = useCallback(
     (e: KeyboardEvent<HTMLInputElement>) => {
-      if (e.key === "Enter") {
-        e.preventDefault();
-        handleSaveEdit();
-      } else if (e.key === "Escape") {
-        e.preventDefault();
-        handleCancelEdit();
+      if (e.key === 'Enter') {
+        e.preventDefault()
+        handleSaveEdit()
+      } else if (e.key === 'Escape') {
+        e.preventDefault()
+        handleCancelEdit()
       }
     },
     [handleSaveEdit, handleCancelEdit]
-  );
+  )
 
   if (isEditing) {
     return (
@@ -102,7 +102,7 @@ export function TodoItem({
           <X className="h-4 w-4" />
         </Button>
       </div>
-    );
+    )
   }
 
   return (
@@ -111,15 +111,15 @@ export function TodoItem({
         id={`task-${task.id}`}
         checked={task.completed}
         onCheckedChange={onToggle}
-        aria-label={`${task.title} を${task.completed ? "未完了に" : "完了に"}する`}
+        aria-label={`${task.title} を${task.completed ? '未完了に' : '完了に'}する`}
         className="h-6 w-6 min-h-[44px] min-w-[44px] flex items-center justify-center"
       />
       <label
         htmlFor={`task-${task.id}`}
         onDoubleClick={handleStartEdit}
         className={cn(
-          "flex-1 cursor-pointer select-none min-h-[44px] flex items-center",
-          task.completed && "line-through text-muted-foreground"
+          'flex-1 cursor-pointer select-none min-h-[44px] flex items-center',
+          task.completed && 'line-through text-muted-foreground'
         )}
       >
         {task.title}
@@ -145,5 +145,5 @@ export function TodoItem({
         </Button>
       </div>
     </div>
-  );
+  )
 }

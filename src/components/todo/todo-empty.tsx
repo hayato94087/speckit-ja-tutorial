@@ -1,10 +1,10 @@
-"use client";
+'use client'
 
-import { Filter, FilterLabels } from "@/types/todo";
+import { Filter } from '@/types/todo'
 
 interface TodoEmptyProps {
   /** 現在のフィルタ（メッセージ分岐用） */
-  filter: Filter;
+  filter: Filter
 }
 
 /**
@@ -12,14 +12,14 @@ interface TodoEmptyProps {
  */
 export function TodoEmpty({ filter }: TodoEmptyProps) {
   const messages: Record<Filter, string> = {
-    all: "タスクがありません。上の入力欄から追加してください。",
-    active: "未完了のタスクはありません。",
-    completed: "完了済みのタスクはありません。",
-  };
+    all: 'タスクがありません。上の入力欄から追加してください。',
+    active: '未完了のタスクはありません。',
+    completed: '完了済みのタスクはありません。',
+  }
 
   return (
     <div className="rounded-lg border p-8 text-center">
       <p className="text-muted-foreground">{messages[filter]}</p>
     </div>
-  );
+  )
 }

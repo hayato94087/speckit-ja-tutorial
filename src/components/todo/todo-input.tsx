@@ -1,42 +1,42 @@
-"use client";
+'use client'
 
-import { useState, useCallback, KeyboardEvent } from "react";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { validateTaskTitle } from "@/lib/validation";
+import { useState, useCallback, KeyboardEvent } from 'react'
+import { Input } from '@/components/ui/input'
+import { Button } from '@/components/ui/button'
+import { validateTaskTitle } from '@/lib/validation'
 
 interface TodoInputProps {
   /** タスク追加時のコールバック */
-  onAdd: (title: string) => void;
+  onAdd: (title: string) => void
   /** 入力無効化（オプション） */
-  disabled?: boolean;
+  disabled?: boolean
 }
 
 /**
  * タスク入力フォーム（contracts/components.md §3.2準拠）
  */
 export function TodoInput({ onAdd, disabled = false }: TodoInputProps) {
-  const [value, setValue] = useState("");
+  const [value, setValue] = useState('')
 
   const handleSubmit = useCallback(() => {
-    const validation = validateTaskTitle(value);
+    const validation = validateTaskTitle(value)
     if (!validation.valid) {
-      return;
+      return
     }
 
-    onAdd(value);
-    setValue("");
-  }, [value, onAdd]);
+    onAdd(value)
+    setValue('')
+  }, [value, onAdd])
 
   const handleKeyDown = useCallback(
     (e: KeyboardEvent<HTMLInputElement>) => {
-      if (e.key === "Enter") {
-        e.preventDefault();
-        handleSubmit();
+      if (e.key === 'Enter') {
+        e.preventDefault()
+        handleSubmit()
       }
     },
     [handleSubmit]
-  );
+  )
 
   return (
     <div className="flex gap-2">
@@ -63,5 +63,5 @@ export function TodoInput({ onAdd, disabled = false }: TodoInputProps) {
         タスク名を入力してEnterまたは追加ボタンで追加
       </span>
     </div>
-  );
+  )
 }
