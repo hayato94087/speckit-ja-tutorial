@@ -119,7 +119,8 @@
 - [ ] T016 [P] [US3] `tests/unit/lib/storage.test.ts` でストレージロジックがテストされていることを確認
 - [ ] T017 [P] [US3] `tests/unit/lib/migration.test.ts` でマイグレーションロジックがテストされていることを確認
 - [ ] T018 [P] [US3] `tests/unit/lib/task-factory.test.ts` でタスクファクトリーロジックがテストされていることを確認
-- [ ] T019 [P] [US3] `tests/unit/hooks/` でフックロジック（use-todos, use-local-storage等）がテストされていることを確認
+- [ ] T019a [P] [US3] `tests/unit/hooks/use-todos.test.ts` で完了切り替えロジック（未完了→完了、完了→未完了）がテストされていることを確認
+- [ ] T019b [P] [US3] `tests/unit/hooks/use-local-storage.test.ts` でストレージフックがテストされていることを確認
 
 > **✅ チェックポイント**: US3が完全に機能し、独立してテスト可能
 
@@ -136,26 +137,24 @@
 - [ ] T022 [P] [US4] `tests/e2e/todo-complete.spec.ts` で完了切り替えがテストされていることを確認
 - [ ] T023 [P] [US4] `tests/e2e/todo-filter.spec.ts` でフィルタ操作がテストされていることを確認
 - [ ] T024 [P] [US4] `tests/e2e/todo-persistence.spec.ts` で永続化がテストされていることを確認
-- [ ] T025 [US4] `test-results/` にスクリーンショットが生成されることを確認
-- [ ] T026 [P] [US4] `test-results/` に動画が生成されることを確認
-- [ ] T027 [US4] 失敗時にトレースが `test-results/` に保存されることを確認
+- [ ] T025 [US4] `test-results/` にスクリーンショットが生成され、`npx playwright show-report` で確認できることを検証
+- [ ] T026 [P] [US4] `test-results/` に動画ファイル（.webm）が生成されることを確認
+- [ ] T027 [US4] 意図的にテストを失敗させ、`test-results/` にトレース（.zip）が保存されることを確認
 
 > **✅ チェックポイント**: US4が完全に機能し、独立してテスト可能
 
 ### Phase 7: US5 - 既存機能の維持 [P1]
 
-**目標**: 品質ゲート導入後も既存のToDo機能（001-personal-todo）がすべて正常に動作することを確認
+**目標**: US1-US4の品質ゲート導入により、001-personal-todoの機能が影響を受けていないことを最終確認
 
-**独立テスト**: すべてのE2Eテストと Unitテストが引き続きPASSすることを確認
+**独立テスト**: Phase 8の `npm run check-all` で一括確認
 
-#### US5の検証
+> **注記**: US4で個別シナリオを検証済み。このフェーズでは全体としてのリグレッションがないことを確認する。
 
-- [ ] T028 [US5] タスク追加機能のE2Eテスト（Enterキー、ボタン、空文字ガード）がPASSすることを確認
-- [ ] T029 [P] [US5] タスク完了切り替え機能のE2Eテスト（チェックボックス、未完了戻し、リロード後維持）がPASSすることを確認
-- [ ] T030 [P] [US5] タスク編集機能のE2Eテスト（編集保存、Escapeキャンセル）がPASSすることを確認
-- [ ] T031 [P] [US5] タスク削除機能のE2Eテスト（削除ボタン）がPASSすることを確認
-- [ ] T032 [P] [US5] フィルタ機能のE2Eテスト（すべて、未完了、完了済み）がPASSすることを確認
-- [ ] T033 [US5] データ永続化機能のE2Eテスト（リロード後復元）がPASSすることを確認
+#### US5の検証（US4完了後の最終確認）
+
+- [ ] T028 [US5] すべてのE2Eテストが引き続きPASSすることを `npm run test:e2e` で最終確認
+- [ ] T029 [US5] すべてのUnitテストが引き続きPASSすることを `npm run test:run` で最終確認
 
 > **✅ チェックポイント**: 既存機能が維持されていることを確認
 
